@@ -1,4 +1,4 @@
-# IslandMart Retail Data Analysis & Power BI Dashboard
+# Data Exploration and Visualisation – Group Coursework
 
 ## Project Overview
 
@@ -30,13 +30,13 @@ The project focuses on the **Moka district** and the **Electronics product categ
 
 As a group member, I contributed to the exploratory analysis, Power BI dashboard development, reporting, and final review of the project.
 
-### R & Exploratory Data Analysis
+### Exploratory Data Analysis
 
 * Imported and reviewed the dataset in R.
 * Conducted univariate analysis of numerical and categorical variables.
 * Created histograms, density plots, boxplots, and bar charts.
 * Interpreted and documented the findings using R Markdown.
-* Finalised the Task 2 analysis and improved its presentation.
+* Finalised the **Exploratory Data Analysis component (Task 2)** and improved its presentation.
 
 ### Power BI Dashboard
 
@@ -48,7 +48,7 @@ As a group member, I contributed to the exploratory analysis, Power BI dashboard
 
 ### Reporting & Documentation
 
-* Prepared the storytelling report for Task 5.
+* Prepared the **data storytelling and reporting component (Task 5)**.
 * Developed the dashboard user guide.
 * Reviewed and improved the formatting and consistency of the final coursework files before submission.
 
@@ -69,14 +69,16 @@ An interactive Power BI dashboard was developed to communicate key business metr
 
 ## Repository Contents
 
-* `Univariate_EDA_Task2_NG(1).Rmd` — R Markdown file containing my exploratory data analysis
-* `STAT5228GroupB.pbix` — Interactive Power BI dashboard
-* `STAT5228_GroupB_Report.pdf` — Group coursework report
-* `dashboard_user_guide.pdf` — Dashboard user guide
+* `Univariate_EDA_Task2_NG(1).Rmd` — R Markdown file containing my **exploratory data analysis**
+* `STAT5228GroupB.pbix` — Interactive **Power BI dashboard**
+* `STAT5228_GroupB_Report.pdf` — **Final group coursework report** containing the project analysis and findings
+* `dashboard_user_guide.pdf` — **User guide** explaining how to use the Power BI dashboard
+
+> **Note:** The original coursework brief and questions are not included in this repository. The task descriptions above are provided to give context to the submitted files and contributions.
 
 ## Project Context
 
-This project was completed as part of a **group coursework for the MSc Data Analytics programme**. IslandMart is a fictional retail business created for academic purposes.
+This project was completed as part of the **Data Exploration and Visualisation module** of the **MSc Data Analytics programme**. It was completed as a group coursework project. IslandMart is a fictional retail business created for academic purposes.
 
 ## Skills Demonstrated
 

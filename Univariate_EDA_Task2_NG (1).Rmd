@@ -1,0 +1,413 @@
+---
+title: "TASK 2 — UNIVARIATE EDA + VISUAL DESIGN"
+author: |
+  Nasrin Razia Golamaully  
+  Student ID: 2523258
+date: "2026-04-27"
+
+output:
+  pdf_document:
+    number_sections: true
+    fig_caption: true
+
+header-includes:
+  - \usepackage{float}  
+---
+
+```{r setup, include=FALSE}
+# To auto-adjust figure sizes for all plots
+knitr::opts_chunk$set(
+  echo = TRUE,       # show R code
+  warning = FALSE,   # hide warnings
+  message = FALSE,   # hide messages
+  fig.width = 6,     # default width for all figures
+  fig.height = 4,    # default height for all figures
+  fig.align = "center",
+  fig.pos = "H",     # force figures to appear exactly here
+  dpi = 150          # improves figure clarity in PDF/HTML
+)
+```
+
+#  Overview
+
+This univariate exploratory data analysis (EDA) examines the statistical characteristics of the dataset focusing on the Moka district and the Electronics product category. The purpose of this analysis is to understand the distribution, variability and statistical behaviour of the variables before conducting further modelling.
+
+The dataset contains 423 observations. The main numerical variables analysed include Net Sales, Gross Profit, Delivery Minutes and Satisfaction Score. The categorical variables include Payment Method, Customer Gender, Customer Segment and Channel.
+
+#  Data Loading and Structure
+
+The dataset is first examined to understand its structure and identify missing values. Required packages are loaded for data manipulation, visualisation and statistical analysis.
+
+```{r}
+
+# Load required libraries (without warnings/messages)
+
+suppressPackageStartupMessages({
+
+library(tidyverse)
+library(ggplot2)
+library(lubridate)
+library(moments)
+library(knitr)
+library(kableExtra)
+
+})
+
+# Set working directory
+
+setwd("C:/Users/gnasr/OneDrive/Desktop/MSc Data Analytics Semester 2/coursework for Data Exploration and Visualisation/Raw data")
+
+# Load dataset
+
+df <- read.csv("Moka_Data.csv")
+
+# Examine structure
+
+str(df)
+
+summary(df)
+
+colSums(is.na(df))
+
+```
+
+The structure output shows the dataset contains both numerical and categorical variables. Missing values are mainly present in Delivery Minutes and Satisfaction Score, which likely reflects unrecorded information rather than data errors.
+
+#   Numeric Distributions
+
+This section examines the distributional characteristics of the main numeric variables using histograms, density plots, skewness, and kurtosis. The objective is to assess normality, detect skewness, and determine whether transformations are necessary for modelling.
+
+##  Net Sales Distribution
+
+### Original Distribution
+
+A histogram combined with a density plot is used to examine the distribution of Net Sales in order to understand its shape, spread, and possible deviations from normality.
+
+```{r fig.cap="Histogram and density plot of Net Sales"}
+
+ggplot(df, aes(x = net_sales_mur)) +
+
+geom_histogram(aes(y = after_stat(density)),
+bins = 40,
+fill = "steelblue",
+color = "white",
+na.rm = TRUE) +
+
+geom_density(
+color = "darkblue",
+na.rm = TRUE) +
+
+theme_minimal() +
+
+labs(
+
+title = "Distribution of Net Sales",
+x = "Net Sales (MUR)",
+y = "Density"
+
+)
+
+```
+
+```{r}
+
+skewness(df$net_sales_mur,na.rm=TRUE)
+
+kurtosis(df$net_sales_mur,na.rm=TRUE)
+
+```
+
+The distribution of Net Sales is approximately symmetric with a slight concentration around the central values. The histogram shows no extreme distortion, and the density curve confirms a fairly balanced shape.
+
+Skewness is close to zero, indicating minimal asymmetry in the data. This suggests that sales values are relatively stable across transactions, with no strong dominance of extreme high or low values.
+
+Overall, Net Sales can be considered well-behaved for exploratory analysis, with no need for transformation at this stage.
+
+
+##  Gross Profit Distribution
+### Original Distribution
+
+The distribution of Gross Profit is analysed to identify possible skewness and variability in profit values.
+
+```{r fig.cap="Distribution of Gross Profit"}
+
+ggplot(df,aes(x=gross_profit_mur))+
+
+geom_histogram(aes(y=after_stat(density)),
+bins=40,
+fill="mediumpurple",
+color="white",
+na.rm=TRUE)+
+
+geom_density(
+color="purple",
+na.rm=TRUE)+
+
+theme_minimal()
+
+```
+
+```{r}
+
+skewness(df$gross_profit_mur,na.rm=TRUE)
+
+kurtosis(df$gross_profit_mur,na.rm=TRUE)
+
+```
+
+Gross Profit shows moderate positive skewness, with most values clustered in the mid-range and a smooth right tail reflecting higher-value transactions. The distribution is unimodal and well-structured, with no significant outliers. Overall, it remains suitable for interpretation in its original scale for univariate analysis.
+
+##  Delivery Minutes Distribution
+### Original Distribution
+
+Delivery time is analysed to better understand operational efficiency and variability in service performance.
+
+```{r fig.cap="Distribution of Delivery Minutes"}
+
+ggplot(df,aes(x=delivery_minutes))+
+
+geom_histogram(aes(y=after_stat(density)),
+bins=40,
+fill="turquoise",
+color="white",
+na.rm=TRUE)+
+
+geom_density(
+color="darkcyan",
+na.rm=TRUE)+
+
+theme_minimal()
+
+```
+
+```{r}
+cat("Delivery Minutes Skewness:", skewness(df$delivery_minutes, na.rm = TRUE), "\n")
+cat("Delivery Minutes Kurtosis:", kurtosis(df$delivery_minutes, na.rm = TRUE), "\n")
+
+```
+The distribution of delivery time is moderately positively skewed, with most values clustered between 20 and 40 minutes and a gradual right tail toward longer durations. However, the skewness is not severe, and the distribution remains smooth and unimodal without extreme outliers. Therefore, a log transformation is not necessary, as the data is sufficiently well-behaved for analysis in its current form.
+
+##  Satisfaction Score Distribution
+### Original Distribution
+
+Customer Satisfaction Scores are analysed to understand overall feedback patterns and detect possible response bias.
+
+```{r fig.cap="Distribution of Satisfaction Score"}
+
+ggplot(df,aes(x=satisfaction_score))+
+
+geom_histogram(aes(y=after_stat(density)),
+bins=20,
+fill="orange",
+color="white",
+na.rm=TRUE)+
+
+geom_density(
+color="darkorange",
+na.rm=TRUE)+
+
+theme_minimal()
+
+```
+
+```{r}
+cat("Satisfaction Score Skewness:", skewness(df$satisfaction_score, na.rm = TRUE), "\n")
+cat("Satisfaction Score Kurtosis:", kurtosis(df$satisfaction_score, na.rm = TRUE), "\n")
+
+```
+
+Satisfaction Score is nearly perfectly symmetric with no extreme values. The skewness and kurtosis further confirm the absence of extreme response patterns, so no transformation is required.
+
+#  Outlier Analysis
+
+Boxplots are used to detect potential outliers.
+
+```{r fig.cap="Combined Boxplots of Net Sales, Gross Profit, and Delivery Minutes"}
+library(tidyr)
+library(ggplot2)
+
+# Pivot data to long format
+df_long <- df %>%
+  select(net_sales_mur, gross_profit_mur, delivery_minutes) %>%
+  pivot_longer(cols = everything(),
+               names_to = "Variable",
+               values_to = "Value")
+
+# Create combined boxplot
+ggplot(df_long, aes(x = Variable, y = Value, fill = Variable)) +
+  geom_boxplot(na.rm = TRUE) +
+  scale_fill_manual(values = c("lightblue", "thistle", "mediumturquoise")) +
+  labs(title = "Boxplots of Key Numeric Variables",
+       x = "Variable",
+       y = "Values") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "none")
+```
+
+Outliers in the boxplots are identified as individual points beyond the whiskers, which represent values more than 1.5 times the interquartile range (IQR) from the box. In this case, **delivery_minutes** shows a high outlier above the main distribution, while **gross_profit_mur** also displays an outlier above its upper whisker. In contrast, **net_sales_mur** shows no distinct outlier points, indicating that although it has a wide spread, its values remain within the expected range.
+
+
+#  Categorical Distributions (Bar Charts)
+
+The distribution of key categorical variables is analysed using bar charts to identify dominant patterns and underlying customer behaviour across different dimensions.
+
+```{r fig.cap="Payment Method Distribution"}
+
+ggplot(df,aes(x=payment_method))+
+
+geom_bar(fill="coral")+
+
+theme_minimal()
+
+```
+
+Card payments dominate, indicating strong preference for convenient payment options.
+
+
+```{r fig.cap="Gender Distribution"}
+
+ggplot(df,aes(x=customer_gender))+
+
+geom_bar(fill="pink")+
+
+theme_minimal()
+
+```
+
+Gender distribution is relatively balanced, with a slight predominance of female customers. This suggests no major gender disparity in purchasing behaviour.
+
+```{r fig.cap="Customer Segment Distribution"}
+
+ggplot(df,aes(x=customer_segment))+
+
+geom_bar(fill="mediumseagreen")+
+
+theme_minimal()
+
+```
+
+Returning customers form the largest segment, followed by new customers, with VIP customers being the smallest group. This indicates strong customer retention and a stable revenue base.
+
+
+# Grouped Distributions (Violin Plots)
+
+The following violin plots show the distribution of key numeric variables across different groups, highlighting patterns, variability, and segment-specific trends. The violin plots are presented below and can also be found in Appendix 4 of the report.
+
+```{r fig.cap="Net Sales by Customer Segment"}
+ggplot(df, aes(x = customer_segment, y = net_sales_mur, fill = customer_segment)) +
+  geom_violin() +
+  labs(title = "Net Sales by Customer Segment — Moka Electronics",
+       x = "Customer Segment",
+       y = "Net Sales (MUR)") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("tomato","gold","mediumseagreen","skyblue","orchid"))
+```
+
+Net Sales are broadly similar across all segments, with Returning customers showing a slightly higher concentration of peak sales around 7,000 MUR.
+
+```{r}
+ggplot(df, aes(x = customer_segment, y = gross_profit_mur, fill = customer_segment)) +
+  geom_violin() +
+  labs(title = "Gross Profit by Customer Segment — Moka Electronics",
+       x = "Customer Segment",
+       y = "Gross Profit (MUR)") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("darkorange","mediumturquoise","pink","limegreen","violet"))
+```
+
+Gross Profit is most consistent for VIP customers,while Returning customers exhibit the highest potential upside with a significant "long tail" of high-profit transactions.
+
+```{r}
+ggplot(df, aes(x = channel, y = delivery_minutes, fill = channel)) +
+  geom_violin() +
+  labs(title = "Delivery Minutes by Channel — Moka Electronics",
+       x = "Channel",
+       y = "Delivery Minutes") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("skyblue","orange","green"))
+```
+
+Delivery times vary by channel: Online orders are generally faster and concentrated around 25 minutes, Delivery orders are longer and more variable, while the In-store channel has no recorded delivery minutes, as these values are missing from the dataset.
+
+Overall, Net Sales and Gross Profit differ slightly across customer segments, with Returning customers showing higher peaks and potential profit. Delivery times differ by channel, reflecting operational variability and highlighting areas for potential efficiency improvements.
+
+#  Summary Statistics
+The detailed summary statistics table is presented below and can also be found in Appendix 3 of the report.
+
+```{r}
+# Ensure required packages are installed and loaded
+packages <- c("tidyverse","moments","knitr","kableExtra")
+
+for(p in packages){
+  if(!require(p, character.only = TRUE)){
+    install.packages(p)
+    library(p, character.only = TRUE)
+  }
+}
+
+# Create summary statistics table
+summary_table <- data.frame(
+
+Variable = c("Net Sales","Gross Profit","Delivery Minutes","Satisfaction Score"),
+
+Mean = c(
+mean(df$net_sales_mur, na.rm=TRUE),
+mean(df$gross_profit_mur, na.rm=TRUE),
+mean(df$delivery_minutes, na.rm=TRUE),
+mean(df$satisfaction_score, na.rm=TRUE)
+),
+
+Median = c(
+median(df$net_sales_mur, na.rm=TRUE),
+median(df$gross_profit_mur, na.rm=TRUE),
+median(df$delivery_minutes, na.rm=TRUE),
+median(df$satisfaction_score, na.rm=TRUE)
+),
+
+Min = c(
+min(df$net_sales_mur, na.rm=TRUE),
+min(df$gross_profit_mur, na.rm=TRUE),
+min(df$delivery_minutes, na.rm=TRUE),
+min(df$satisfaction_score, na.rm=TRUE)
+),
+
+Max = c(
+max(df$net_sales_mur, na.rm=TRUE),
+max(df$gross_profit_mur, na.rm=TRUE),
+max(df$delivery_minutes, na.rm=TRUE),
+max(df$satisfaction_score, na.rm=TRUE)
+),
+
+Skewness = c(
+moments::skewness(df$net_sales_mur, na.rm=TRUE),
+moments::skewness(df$gross_profit_mur, na.rm=TRUE),
+moments::skewness(df$delivery_minutes, na.rm=TRUE),
+moments::skewness(df$satisfaction_score, na.rm=TRUE)
+),
+
+Kurtosis = c(
+moments::kurtosis(df$net_sales_mur, na.rm=TRUE),
+moments::kurtosis(df$gross_profit_mur, na.rm=TRUE),
+moments::kurtosis(df$delivery_minutes, na.rm=TRUE),
+moments::kurtosis(df$satisfaction_score, na.rm=TRUE)
+)
+
+)
+
+# Display table
+knitr::kable(summary_table,
+caption = "Summary statistics of numeric variables (including skewness and kurtosis)",
+digits = 2) %>%
+kableExtra::kable_styling(full_width = FALSE, position = "center")
+```
+
+#  Conclusion
+
+The univariate analysis shows that the dataset is generally well-structured and suitable for further analysis. The numerical variables are mostly well-behaved, with Net Sales and Satisfaction Score showing approximately symmetric distributions, while Gross Profit and Delivery Minutes display mild positive skewness due to higher transaction values and longer delivery times. A small number of outliers are present, mainly in Gross Profit and Delivery Minutes, reflecting normal operational variation. The categorical analysis shows a strong preference for card payments, a dominant returning customer base, and a relatively balanced gender distribution. Differences in Delivery Minutes across channels highlight variation in operational efficiency. Overall, the dataset is consistent, reliable, and appropriate for further analysis.
+
+

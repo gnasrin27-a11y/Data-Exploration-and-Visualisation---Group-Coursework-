@@ -70,8 +70,8 @@ An interactive Power BI dashboard was developed to communicate key business metr
 ## Repository Contents
 
 * `Univariate_EDA_Task2_NG(1).Rmd` — R Markdown file containing my **exploratory data analysis**
-* `STAT5228GroupB.pbix` — Interactive **Power BI dashboard**
-* `STAT5228_GroupB__Report.pdf` — **Final group coursework report** containing the project analysis and findings
+* `Data_Exploration_and_Visualisation_GroupB.pbix` — Interactive **Power BI dashboard**
+* `Data_Exploration_and_Visualisation_GroupB__Report.pdf` — **Final group coursework report** containing the project analysis and findings
 * `dashboard_user_guide.pdf` — **User guide** explaining how to use the Power BI dashboard
 
 > **Note:** The original coursework brief and questions are not included in this repository. The task descriptions above are provided to give context to the submitted files and contributions.

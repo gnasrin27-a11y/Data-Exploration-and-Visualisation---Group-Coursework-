@@ -40,11 +40,24 @@ As a group member, I contributed to the exploratory analysis, Power BI dashboard
 
 ### Power BI Dashboard
 
-* Imported the dataset into Power BI.
-* Developed maps, cards, and line charts to present operational trends by time and location.
-* Added slicers and RAG formatting to improve dashboard interactivity and usability.
-* Improved the dashboard layout and visual presentation.
-* Corrected field mapping, blank values, settings, and measures during dashboard development.
+An interactive Power BI dashboard was developed to communicate key business metrics and operational findings using maps, cards, trend charts, slicers, and other interactive visualisations.
+
+### Dashboard Preview
+#### 1. KPI Summary
+<img width="1395" height="730" alt="dashboard_images_01_kpi_summary" src="https://github.com/user-attachments/assets/9cfe0f73-4408-44f6-ac71-6272d667ee34" />
+
+#### 2. Sales & Profit Analysis
+<img width="1296" height="696" alt="dashboard_images_02_sales_profit_analysis" src="https://github.com/user-attachments/assets/fffa06ee-b76a-44d5-9490-cd9bad447cdb" />
+
+#### 3. Product & Channel Analysis
+<img width="1302" height="728" alt="dashboard_images_03_product_channel_analysis" src="https://github.com/user-attachments/assets/d599dda7-c8de-4998-8a92-8374802e9a08" />
+
+#### 4. Customer Insights
+<img width="1297" height="722" alt="dashboard_images_04_customer_insights" src="https://github.com/user-attachments/assets/27168375-6061-4740-946d-f27b8e11acb7" />
+
+#### 5. Delivery Performance
+<img width="1297" height="723" alt="dashboard_images_05_delivery_performance" src="https://github.com/user-attachments/assets/350ead23-1042-4a42-b7ce-131523f879ea" />
+
 
 ### Reporting & Documentation
 
@@ -62,10 +75,6 @@ As a group member, I contributed to the exploratory analysis, Power BI dashboard
 * Customer satisfaction
 * Return rates
 * Store performance
-
-## Dashboard
-
-An interactive Power BI dashboard was developed to communicate key business metrics and operational findings using maps, cards, trend charts, slicers, and other interactive visualisations.
 
 ## Repository Contents
 
